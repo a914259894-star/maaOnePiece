@@ -141,10 +141,47 @@ def install_agent():
     )
 
 
+def install_cli():
+    src = working_dir / "deps" / "bin" / "MaaPiCli.exe"
+    if src.exists():
+        shutil.copy2(src, install_path / "MaaPiCli.exe")
+        bat = install_path / "MaaPiCli.bat"
+        content = (
+            "@echo off\r\n"
+            "setlocal\r\n"
+            f"set PATH=%~dp0runtimes\\{get_dotnet_platform_tag()}\\native;%PATH%\r\n"
+            "start \"\" \"%~dp0MaaPiCli.exe\"\r\n"
+            "endlocal\r\n"
+        )
+        bat.write_text(content, encoding="utf-8")
+
+
+def install_node_modules():
+    node1 = working_dir / "deps" / "bin" / "MaaNode.node"
+    node2 = working_dir / "deps" / "bin" / "MaaNodeServer.node"
+    if node1.exists():
+        shutil.copy2(node1, install_path / "MaaNode.node")
+    if node2.exists():
+        shutil.copy2(node2, install_path / "MaaNodeServer.node")
+
+
+def install_flatten_win_dlls_to_root():
+    if os_name != "win":
+        return
+    src = working_dir / "deps" / "bin"
+    if not src.exists():
+        return
+    for p in src.glob("*.dll"):
+        shutil.copy2(p, install_path / p.name)
+
+
 if __name__ == "__main__":
     install_deps()
     install_resource()
     install_chores()
     install_agent()
+    install_cli()
+    install_node_modules()
+    install_flatten_win_dlls_to_root()
 
     print(f"Install to {install_path} successfully.")

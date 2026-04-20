@@ -1,12 +1,2641 @@
 {
-    "MyTask1": {},
-    "MyTask2": {},
-    "MyTask3": {},
-    "MyTask4": {
-        "recognition": "Custom",
-        "custom_recognition": "my_reco_222",
-        "action": "Custom",
-        "custom_action": "my_action_111"
+    "AutoRankCasual": {
+        "next": [
+            "FindBanConfirm",
+            "FindLockTeam",
+            "WaitBattleStart",
+            "StartMatch",
+            "MatchingPhase",
+            "KeepAlive"
+        ],
+        "rate_limit": 500
     },
-    "OcrTask": {}
+    "StartMatch": {
+        "recognition": "OCR",
+        "roi": [
+            962,
+            594,
+            214,
+            126
+        ],
+        "expected": "开始匹配",
+        "action": "Click",
+        "next": "MatchingPhase",
+        "timeout": 5000
+    },
+    "MatchingPhase": {
+        "next": [
+            "FindBanConfirm",
+            "WaitMatchIndicator"
+        ],
+        "rate_limit": 800
+    },
+    "WaitMatchIndicator": {
+        "recognition": "OCR",
+        "roi": [
+            471,
+            0,
+            256,
+            133
+        ],
+        "expected": "预计匹配时间",
+        "action": "DoNothing",
+        "next": "MatchingPhase",
+        "timeout": -1,
+        "rate_limit": 800
+    },
+    "FindBanConfirm": {
+        "recognition": "OCR",
+        "roi": [
+            993,
+            594,
+            218,
+            126
+        ],
+        "expected": "确定禁用",
+        "action": "Click",
+        "next": "FindLockTeam",
+        "timeout": -1,
+        "rate_limit": 500
+    },
+    "FindLockTeam": {
+        "recognition": "OCR",
+        "roi": [
+            979,
+            589,
+            239,
+            131
+        ],
+        "expected": "锁定阵容",
+        "action": "Click",
+        "next": "WaitBattleStart",
+        "timeout": -1,
+        "rate_limit": 500
+    },
+    "WaitBattleStart": {
+        "recognition": "OCR",
+        "roi": [
+            541,
+            0,
+            201,
+            137
+        ],
+        "expected": [
+            "第",
+            "一",
+            "二",
+            "三",
+            "四",
+            "五",
+            "六",
+            "回"
+        ],
+        "action": "DoNothing",
+        "next": "BattleClick1",
+        "timeout": -1,
+        "rate_limit": 500
+    },
+    "EndContinue": {
+        "recognition": "OCR",
+        "roi": [
+            991,
+            487,
+            214,
+            134
+        ],
+        "expected": "继续匹配",
+        "action": "Click",
+        "next": "MatchingPhase",
+        "timeout": 0,
+        "rate_limit": 500
+    },
+    "EndStartMatch": {
+        "recognition": "OCR",
+        "roi": [
+            962,
+            594,
+            214,
+            126
+        ],
+        "expected": "开始匹配",
+        "action": "Click",
+        "next": "MatchingPhase",
+        "timeout": 0,
+        "rate_limit": 500
+    },
+    "BattleClick1": {
+        "action": "Click",
+        "target": [
+            842,
+            649,
+            15,
+            15
+        ],
+        "next": [
+            "EndContinue",
+            "EndStartMatch",
+            "BattleClick2"
+        ],
+        "post_delay": 50,
+        "rate_limit": 100
+    },
+    "BattleClick2": {
+        "action": "Click",
+        "target": [
+            960,
+            640,
+            15,
+            15
+        ],
+        "next": [
+            "EndContinue",
+            "EndStartMatch",
+            "BattleClick3"
+        ],
+        "post_delay": 300,
+        "rate_limit": 100
+    },
+    "BattleClick3": {
+        "action": "Click",
+        "target": [
+            993,
+            508,
+            15,
+            15
+        ],
+        "next": [
+            "EndContinue",
+            "EndStartMatch",
+            "BattleClick4"
+        ],
+        "post_delay": 300,
+        "rate_limit": 100
+    },
+    "BattleClick4": {
+        "action": "Click",
+        "target": [
+            814,
+            351,
+            15,
+            15
+        ],
+        "next": [
+            "EndContinue",
+            "EndStartMatch",
+            "BattleClick5"
+        ],
+        "post_delay": 200,
+        "rate_limit": 100
+    },
+    "BattleClick5": {
+        "action": "Click",
+        "target": [
+            877,
+            241,
+            15,
+            15
+        ],
+        "next": [
+            "EndContinue",
+            "EndStartMatch",
+            "AttackClicks"
+        ],
+        "post_delay": 200,
+        "rate_limit": 100
+    },
+    "AttackClicks": {
+        "recognition": "DirectHit",
+        "action": "Click",
+        "target": [
+            1079,
+            602,
+            15,
+            15
+        ],
+        "repeat": 100,
+        "repeat_delay": 0,
+        "next": [
+            "EndContinue",
+            "EndStartMatch",
+            "BattleClick1"
+        ],
+        "post_delay": 250,
+        "rate_limit": 100
+    },
+    "AttackClicksHuangyuan": {
+        "recognition": "DirectHit",
+        "action": "Click",
+        "target": [
+            1139,
+            594,
+            15,
+            15
+        ],
+        "repeat": 7,
+        "repeat_delay": 150,
+        "next": [
+            "EndContinue",
+            "PracticeLoopHuangyuan"
+        ],
+        "post_delay": 0,
+        "rate_limit": 100
+    },
+    "AttackClicksNami": {
+        "recognition": "DirectHit",
+        "action": "Click",
+        "target": [
+            1139,
+            594,
+            15,
+            15
+        ],
+        "repeat": 7,
+        "repeat_delay": 250,
+        "next": [
+            "EndContinue",
+            "PracticeLoopNami"
+        ],
+        "post_delay": 0,
+        "rate_limit": 100
+    },
+    "AttackClicksAce": {
+        "recognition": "DirectHit",
+        "action": "Click",
+        "target": [
+            1139,
+            594,
+            15,
+            15
+        ],
+        "repeat": 7,
+        "repeat_delay": 100,
+        "next": [
+            "EndContinue",
+            "PracticeLoopAce"
+        ],
+        "post_delay": 0,
+        "rate_limit": 100
+    },
+    "KeepAlive": {
+        "action": "Click",
+        "target": [
+            0,
+            0,
+            5,
+            5
+        ],
+        "next": "MatchingPhase",
+        "rate_limit": 5000
+    },
+    "BattlePractice": {
+        "recognition": "DirectHit",
+        "action": "DoNothing",
+        "next": [
+            "PracticeDelay"
+        ],
+        "rate_limit": 100,
+        "timeout": -1
+    },
+    "BattlePracticeHuangyuan": {
+        "recognition": "DirectHit",
+        "action": "DoNothing",
+        "next": [
+            "PracticeDelay"
+        ],
+        "rate_limit": 100,
+        "timeout": -1
+    },
+    "BattlePracticeNami": {
+        "recognition": "DirectHit",
+        "action": "DoNothing",
+        "next": [
+            "PracticeDelay"
+        ],
+        "rate_limit": 100,
+        "timeout": -1
+    },
+    "BattlePracticeAce": {
+        "recognition": "DirectHit",
+        "action": "DoNothing",
+        "next": [
+            "PracticeDelay"
+        ],
+        "rate_limit": 100,
+        "timeout": -1
+    },
+    "PracticeDelay": {
+        "recognition": "DirectHit",
+        "action": "DoNothing",
+        "next": "PracticeSubUnified",
+        "rate_limit": 100
+    },
+    "StressHY_C1_DownSub": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "StressHY_C1_DownSkill1",
+        "rate_limit": 50
+    },
+    "StressHY_C1_DownSkill1": {
+        "action": "Click",
+        "target": [
+            991,
+            429,
+            73,
+            74
+        ],
+        "next": "StressHY_C1_DownSkill2",
+        "rate_limit": 50
+    },
+    "StressHY_C1_DownSkill2": {
+        "action": "Click",
+        "target": [
+            863,
+            444,
+            44,
+            46
+        ],
+        "next": "StressHY_C1_DownScroll",
+        "rate_limit": 50
+    },
+    "StressHY_C1_DownScroll": {
+        "action": "Click",
+        "target": [
+            1157,
+            311,
+            60,
+            52
+        ],
+        "next": "StressHY_C1_DownSummon",
+        "rate_limit": 50
+    },
+    "StressHY_C1_DownSummon": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "StressHY_C1_DownAttack",
+        "rate_limit": 50
+    },
+    "StressHY_C1_DownAttack": {
+        "action": "Click",
+        "target": [
+            1139,
+            594,
+            15,
+            15
+        ],
+        "next": "StressHY_C2_DownSub",
+        "rate_limit": 50
+    },
+    "StressHY_C1_UpAttack": {
+        "action": "TouchUp",
+        "contact": 5,
+        "next": "StressHY_C1_UpSummon",
+        "rate_limit": 50
+    },
+    "StressHY_C1_UpSummon": {
+        "action": "TouchUp",
+        "contact": 4,
+        "next": "StressHY_C1_UpScroll",
+        "rate_limit": 50
+    },
+    "StressHY_C1_UpScroll": {
+        "action": "TouchUp",
+        "contact": 3,
+        "next": "StressHY_C1_UpSkill2",
+        "rate_limit": 50
+    },
+    "StressHY_C1_UpSkill2": {
+        "action": "TouchUp",
+        "contact": 2,
+        "next": "StressHY_C1_UpSkill1",
+        "rate_limit": 50
+    },
+    "StressHY_C1_UpSkill1": {
+        "action": "TouchUp",
+        "contact": 1,
+        "next": "StressHY_C1_UpSub",
+        "rate_limit": 50
+    },
+    "StressHY_C1_UpSub": {
+        "action": "TouchUp",
+        "contact": 0,
+        "next": "StressHY_C2_DownSub",
+        "rate_limit": 50
+    },
+    "StressHY_C2_DownSub": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "StressHY_C2_DownSkill1",
+        "rate_limit": 50
+    },
+    "StressHY_C2_DownSkill1": {
+        "action": "Click",
+        "target": [
+            991,
+            429,
+            73,
+            74
+        ],
+        "next": "StressHY_C2_DownSkill2",
+        "rate_limit": 50
+    },
+    "StressHY_C2_DownSkill2": {
+        "action": "Click",
+        "target": [
+            863,
+            444,
+            44,
+            46
+        ],
+        "next": "StressHY_C2_DownScroll",
+        "rate_limit": 50
+    },
+    "StressHY_C2_DownScroll": {
+        "action": "Click",
+        "target": [
+            1157,
+            311,
+            60,
+            52
+        ],
+        "next": "StressHY_C2_DownSummon",
+        "rate_limit": 50
+    },
+    "StressHY_C2_DownSummon": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "StressHY_C2_DownAttack",
+        "rate_limit": 50
+    },
+    "StressHY_C2_DownAttack": {
+        "action": "Click",
+        "target": [
+            1139,
+            594,
+            15,
+            15
+        ],
+        "next": "StressHY_C3_DownSub",
+        "rate_limit": 50
+    },
+    "StressHY_C2_UpAttack": {
+        "action": "TouchUp",
+        "contact": 5,
+        "next": "StressHY_C2_UpSummon",
+        "rate_limit": 50
+    },
+    "StressHY_C2_UpSummon": {
+        "action": "TouchUp",
+        "contact": 4,
+        "next": "StressHY_C2_UpScroll",
+        "rate_limit": 50
+    },
+    "StressHY_C2_UpScroll": {
+        "action": "TouchUp",
+        "contact": 3,
+        "next": "StressHY_C2_UpSkill2",
+        "rate_limit": 50
+    },
+    "StressHY_C2_UpSkill2": {
+        "action": "TouchUp",
+        "contact": 2,
+        "next": "StressHY_C2_UpSkill1",
+        "rate_limit": 50
+    },
+    "StressHY_C2_UpSkill1": {
+        "action": "TouchUp",
+        "contact": 1,
+        "next": "StressHY_C2_UpSub",
+        "rate_limit": 50
+    },
+    "StressHY_C2_UpSub": {
+        "action": "TouchUp",
+        "contact": 0,
+        "next": "StressHY_C3_DownSub",
+        "rate_limit": 50
+    },
+    "StressHY_C3_DownSub": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "StressHY_C3_DownSkill1",
+        "rate_limit": 50
+    },
+    "StressHY_C3_DownSkill1": {
+        "action": "Click",
+        "target": [
+            991,
+            429,
+            73,
+            74
+        ],
+        "next": "StressHY_C3_DownSkill2",
+        "rate_limit": 50
+    },
+    "StressHY_C3_DownSkill2": {
+        "action": "Click",
+        "target": [
+            863,
+            444,
+            44,
+            46
+        ],
+        "next": "StressHY_C3_DownScroll",
+        "rate_limit": 50
+    },
+    "StressHY_C3_DownScroll": {
+        "action": "Click",
+        "target": [
+            1157,
+            311,
+            60,
+            52
+        ],
+        "next": "StressHY_C3_DownSummon",
+        "rate_limit": 50
+    },
+    "StressHY_C3_DownSummon": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "StressHY_C3_DownAttack",
+        "rate_limit": 50
+    },
+    "StressHY_C3_DownAttack": {
+        "action": "Click",
+        "target": [
+            1139,
+            594,
+            15,
+            15
+        ],
+        "next": "StressHY_C4_DownSub",
+        "rate_limit": 50
+    },
+    "StressHY_C3_UpAttack": {
+        "action": "TouchUp",
+        "contact": 5,
+        "next": "StressHY_C3_UpSummon",
+        "rate_limit": 50
+    },
+    "StressHY_C3_UpSummon": {
+        "action": "TouchUp",
+        "contact": 4,
+        "next": "StressHY_C3_UpScroll",
+        "rate_limit": 50
+    },
+    "StressHY_C3_UpScroll": {
+        "action": "TouchUp",
+        "contact": 3,
+        "next": "StressHY_C3_UpSkill2",
+        "rate_limit": 50
+    },
+    "StressHY_C3_UpSkill2": {
+        "action": "TouchUp",
+        "contact": 2,
+        "next": "StressHY_C3_UpSkill1",
+        "rate_limit": 50
+    },
+    "StressHY_C3_UpSkill1": {
+        "action": "TouchUp",
+        "contact": 1,
+        "next": "StressHY_C3_UpSub",
+        "rate_limit": 50
+    },
+    "StressHY_C3_UpSub": {
+        "action": "TouchUp",
+        "contact": 0,
+        "next": "StressHY_C4_DownSub",
+        "rate_limit": 50
+    },
+    "StressHY_C4_DownSub": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "StressHY_C4_DownSkill1",
+        "rate_limit": 50
+    },
+    "StressHY_C4_DownSkill1": {
+        "action": "Click",
+        "target": [
+            991,
+            429,
+            73,
+            74
+        ],
+        "next": "StressHY_C4_DownSkill2",
+        "rate_limit": 50
+    },
+    "StressHY_C4_DownSkill2": {
+        "action": "Click",
+        "target": [
+            863,
+            444,
+            44,
+            46
+        ],
+        "next": "StressHY_C4_DownScroll",
+        "rate_limit": 50
+    },
+    "StressHY_C4_DownScroll": {
+        "action": "Click",
+        "target": [
+            1157,
+            311,
+            60,
+            52
+        ],
+        "next": "StressHY_C4_DownSummon",
+        "rate_limit": 50
+    },
+    "StressHY_C4_DownSummon": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "StressHY_C4_DownAttack",
+        "rate_limit": 50
+    },
+    "StressHY_C4_DownAttack": {
+        "action": "Click",
+        "target": [
+            1139,
+            594,
+            15,
+            15
+        ],
+        "next": "StressHY_C5_DownSub",
+        "rate_limit": 50
+    },
+    "StressHY_C4_UpAttack": {
+        "action": "TouchUp",
+        "contact": 5,
+        "next": "StressHY_C4_UpSummon",
+        "rate_limit": 50
+    },
+    "StressHY_C4_UpSummon": {
+        "action": "TouchUp",
+        "contact": 4,
+        "next": "StressHY_C4_UpScroll",
+        "rate_limit": 50
+    },
+    "StressHY_C4_UpScroll": {
+        "action": "TouchUp",
+        "contact": 3,
+        "next": "StressHY_C4_UpSkill2",
+        "rate_limit": 50
+    },
+    "StressHY_C4_UpSkill2": {
+        "action": "TouchUp",
+        "contact": 2,
+        "next": "StressHY_C4_UpSkill1",
+        "rate_limit": 50
+    },
+    "StressHY_C4_UpSkill1": {
+        "action": "TouchUp",
+        "contact": 1,
+        "next": "StressHY_C4_UpSub",
+        "rate_limit": 50
+    },
+    "StressHY_C4_UpSub": {
+        "action": "TouchUp",
+        "contact": 0,
+        "next": "StressHY_C5_DownSub",
+        "rate_limit": 50
+    },
+    "StressHY_C5_DownSub": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "StressHY_C5_DownSkill1",
+        "rate_limit": 50
+    },
+    "StressHY_C5_DownSkill1": {
+        "action": "Click",
+        "target": [
+            991,
+            429,
+            73,
+            74
+        ],
+        "next": "StressHY_C5_DownSkill2",
+        "rate_limit": 50
+    },
+    "StressHY_C5_DownSkill2": {
+        "action": "Click",
+        "target": [
+            863,
+            444,
+            44,
+            46
+        ],
+        "next": "StressHY_C5_DownScroll",
+        "rate_limit": 50
+    },
+    "StressHY_C5_DownScroll": {
+        "action": "Click",
+        "target": [
+            1157,
+            311,
+            60,
+            52
+        ],
+        "next": "StressHY_C5_DownSummon",
+        "rate_limit": 50
+    },
+    "StressHY_C5_DownSummon": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "StressHY_C5_DownAttack",
+        "rate_limit": 50
+    },
+    "StressHY_C5_DownAttack": {
+        "action": "Click",
+        "target": [
+            1139,
+            594,
+            15,
+            15
+        ],
+        "next": "StressHY_Done",
+        "rate_limit": 50
+    },
+    "StressHY_C5_UpAttack": {
+        "action": "TouchUp",
+        "contact": 5,
+        "next": "StressHY_C5_UpSummon",
+        "rate_limit": 50
+    },
+    "StressHY_C5_UpSummon": {
+        "action": "TouchUp",
+        "contact": 4,
+        "next": "StressHY_C5_UpScroll",
+        "rate_limit": 50
+    },
+    "StressHY_C5_UpScroll": {
+        "action": "TouchUp",
+        "contact": 3,
+        "next": "StressHY_C5_UpSkill2",
+        "rate_limit": 50
+    },
+    "StressHY_C5_UpSkill2": {
+        "action": "TouchUp",
+        "contact": 2,
+        "next": "StressHY_C5_UpSkill1",
+        "rate_limit": 50
+    },
+    "StressHY_C5_UpSkill1": {
+        "action": "TouchUp",
+        "contact": 1,
+        "next": "StressHY_C5_UpSub",
+        "rate_limit": 50
+    },
+    "StressHY_C5_UpSub": {
+        "action": "TouchUp",
+        "contact": 0,
+        "next": "StressHY_Done",
+        "rate_limit": 50
+    },
+    "StressHY_Done": {
+        "action": "StopTask"
+    },
+    "StressNM_C1_DownSub": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "StressNM_C1_DownSkill1",
+        "rate_limit": 50
+    },
+    "StressNM_C1_DownSkill1": {
+        "action": "Click",
+        "target": [
+            972,
+            618,
+            53,
+            53
+        ],
+        "next": "StressNM_C1_DownSkill2",
+        "rate_limit": 50
+    },
+    "StressNM_C1_DownSkill2": {
+        "action": "Click",
+        "target": [
+            1006,
+            469,
+            55,
+            56
+        ],
+        "next": "StressNM_C1_DownScroll",
+        "rate_limit": 50
+    },
+    "StressNM_C1_DownScroll": {
+        "action": "Click",
+        "target": [
+            1157,
+            311,
+            60,
+            52
+        ],
+        "next": "StressNM_C1_DownSummon",
+        "rate_limit": 50
+    },
+    "StressNM_C1_DownSummon": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "StressNM_C1_DownAttack",
+        "rate_limit": 50
+    },
+    "StressNM_C1_DownAttack": {
+        "action": "Click",
+        "target": [
+            1139,
+            594,
+            15,
+            15
+        ],
+        "next": "StressNM_C2_DownSub",
+        "rate_limit": 50
+    },
+    "StressNM_C1_UpAttack": {
+        "action": "TouchUp",
+        "contact": 5,
+        "next": "StressNM_C1_UpSummon",
+        "rate_limit": 50
+    },
+    "StressNM_C1_UpSummon": {
+        "action": "TouchUp",
+        "contact": 4,
+        "next": "StressNM_C1_UpScroll",
+        "rate_limit": 50
+    },
+    "StressNM_C1_UpScroll": {
+        "action": "TouchUp",
+        "contact": 3,
+        "next": "StressNM_C1_UpSkill2",
+        "rate_limit": 50
+    },
+    "StressNM_C1_UpSkill2": {
+        "action": "TouchUp",
+        "contact": 2,
+        "next": "StressNM_C1_UpSkill1",
+        "rate_limit": 50
+    },
+    "StressNM_C1_UpSkill1": {
+        "action": "TouchUp",
+        "contact": 1,
+        "next": "StressNM_C1_UpSub",
+        "rate_limit": 50
+    },
+    "StressNM_C1_UpSub": {
+        "action": "TouchUp",
+        "contact": 0,
+        "next": "StressNM_C2_DownSub",
+        "rate_limit": 50
+    },
+    "StressNM_C2_DownSub": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "StressNM_C2_DownSkill1",
+        "rate_limit": 50
+    },
+    "StressNM_C2_DownSkill1": {
+        "action": "Click",
+        "target": [
+            972,
+            618,
+            53,
+            53
+        ],
+        "next": "StressNM_C2_DownSkill2",
+        "rate_limit": 50
+    },
+    "StressNM_C2_DownSkill2": {
+        "action": "Click",
+        "target": [
+            1006,
+            469,
+            55,
+            56
+        ],
+        "next": "StressNM_C2_DownScroll",
+        "rate_limit": 50
+    },
+    "StressNM_C2_DownScroll": {
+        "action": "Click",
+        "target": [
+            1157,
+            311,
+            60,
+            52
+        ],
+        "next": "StressNM_C2_DownSummon",
+        "rate_limit": 50
+    },
+    "StressNM_C2_DownSummon": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "StressNM_C2_DownAttack",
+        "rate_limit": 50
+    },
+    "StressNM_C2_DownAttack": {
+        "action": "Click",
+        "target": [
+            1139,
+            594,
+            15,
+            15
+        ],
+        "next": "StressNM_C3_DownSub",
+        "rate_limit": 50
+    },
+    "StressNM_C2_UpAttack": {
+        "action": "TouchUp",
+        "contact": 5,
+        "next": "StressNM_C2_UpSummon",
+        "rate_limit": 50
+    },
+    "StressNM_C2_UpSummon": {
+        "action": "TouchUp",
+        "contact": 4,
+        "next": "StressNM_C2_UpScroll",
+        "rate_limit": 50
+    },
+    "StressNM_C2_UpScroll": {
+        "action": "TouchUp",
+        "contact": 3,
+        "next": "StressNM_C2_UpSkill2",
+        "rate_limit": 50
+    },
+    "StressNM_C2_UpSkill2": {
+        "action": "TouchUp",
+        "contact": 2,
+        "next": "StressNM_C2_UpSkill1",
+        "rate_limit": 50
+    },
+    "StressNM_C2_UpSkill1": {
+        "action": "TouchUp",
+        "contact": 1,
+        "next": "StressNM_C2_UpSub",
+        "rate_limit": 50
+    },
+    "StressNM_C2_UpSub": {
+        "action": "TouchUp",
+        "contact": 0,
+        "next": "StressNM_C3_DownSub",
+        "rate_limit": 50
+    },
+    "StressNM_C3_DownSub": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "StressNM_C3_DownSkill1",
+        "rate_limit": 50
+    },
+    "StressNM_C3_DownSkill1": {
+        "action": "Click",
+        "target": [
+            972,
+            618,
+            53,
+            53
+        ],
+        "next": "StressNM_C3_DownSkill2",
+        "rate_limit": 50
+    },
+    "StressNM_C3_DownSkill2": {
+        "action": "Click",
+        "target": [
+            1006,
+            469,
+            55,
+            56
+        ],
+        "next": "StressNM_C3_DownScroll",
+        "rate_limit": 50
+    },
+    "StressNM_C3_DownScroll": {
+        "action": "Click",
+        "target": [
+            1157,
+            311,
+            60,
+            52
+        ],
+        "next": "StressNM_C3_DownSummon",
+        "rate_limit": 50
+    },
+    "StressNM_C3_DownSummon": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "StressNM_C3_DownAttack",
+        "rate_limit": 50
+    },
+    "StressNM_C3_DownAttack": {
+        "action": "Click",
+        "target": [
+            1139,
+            594,
+            15,
+            15
+        ],
+        "next": "StressNM_C4_DownSub",
+        "rate_limit": 50
+    },
+    "StressNM_C3_UpAttack": {
+        "action": "TouchUp",
+        "contact": 5,
+        "next": "StressNM_C3_UpSummon",
+        "rate_limit": 50
+    },
+    "StressNM_C3_UpSummon": {
+        "action": "TouchUp",
+        "contact": 4,
+        "next": "StressNM_C3_UpScroll",
+        "rate_limit": 50
+    },
+    "StressNM_C3_UpScroll": {
+        "action": "TouchUp",
+        "contact": 3,
+        "next": "StressNM_C3_UpSkill2",
+        "rate_limit": 50
+    },
+    "StressNM_C3_UpSkill2": {
+        "action": "TouchUp",
+        "contact": 2,
+        "next": "StressNM_C3_UpSkill1",
+        "rate_limit": 50
+    },
+    "StressNM_C3_UpSkill1": {
+        "action": "TouchUp",
+        "contact": 1,
+        "next": "StressNM_C3_UpSub",
+        "rate_limit": 50
+    },
+    "StressNM_C3_UpSub": {
+        "action": "TouchUp",
+        "contact": 0,
+        "next": "StressNM_C4_DownSub",
+        "rate_limit": 50
+    },
+    "StressNM_C4_DownSub": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "StressNM_C4_DownSkill1",
+        "rate_limit": 50
+    },
+    "StressNM_C4_DownSkill1": {
+        "action": "Click",
+        "target": [
+            972,
+            618,
+            53,
+            53
+        ],
+        "next": "StressNM_C4_DownSkill2",
+        "rate_limit": 50
+    },
+    "StressNM_C4_DownSkill2": {
+        "action": "Click",
+        "target": [
+            1006,
+            469,
+            55,
+            56
+        ],
+        "next": "StressNM_C4_DownScroll",
+        "rate_limit": 50
+    },
+    "StressNM_C4_DownScroll": {
+        "action": "Click",
+        "target": [
+            1157,
+            311,
+            60,
+            52
+        ],
+        "next": "StressNM_C4_DownSummon",
+        "rate_limit": 50
+    },
+    "StressNM_C4_DownSummon": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "StressNM_C4_DownAttack",
+        "rate_limit": 50
+    },
+    "StressNM_C4_DownAttack": {
+        "action": "Click",
+        "target": [
+            1139,
+            594,
+            15,
+            15
+        ],
+        "next": "StressNM_C5_DownSub",
+        "rate_limit": 50
+    },
+    "StressNM_C4_UpAttack": {
+        "action": "TouchUp",
+        "contact": 5,
+        "next": "StressNM_C4_UpSummon",
+        "rate_limit": 50
+    },
+    "StressNM_C4_UpSummon": {
+        "action": "TouchUp",
+        "contact": 4,
+        "next": "StressNM_C4_UpScroll",
+        "rate_limit": 50
+    },
+    "StressNM_C4_UpScroll": {
+        "action": "TouchUp",
+        "contact": 3,
+        "next": "StressNM_C4_UpSkill2",
+        "rate_limit": 50
+    },
+    "StressNM_C4_UpSkill2": {
+        "action": "TouchUp",
+        "contact": 2,
+        "next": "StressNM_C4_UpSkill1",
+        "rate_limit": 50
+    },
+    "StressNM_C4_UpSkill1": {
+        "action": "TouchUp",
+        "contact": 1,
+        "next": "StressNM_C4_UpSub",
+        "rate_limit": 50
+    },
+    "StressNM_C4_UpSub": {
+        "action": "TouchUp",
+        "contact": 0,
+        "next": "StressNM_C5_DownSub",
+        "rate_limit": 50
+    },
+    "StressNM_C5_DownSub": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "StressNM_C5_DownSkill1",
+        "rate_limit": 50
+    },
+    "StressNM_C5_DownSkill1": {
+        "action": "Click",
+        "target": [
+            972,
+            618,
+            53,
+            53
+        ],
+        "next": "StressNM_C5_DownSkill2",
+        "rate_limit": 50
+    },
+    "StressNM_C5_DownSkill2": {
+        "action": "Click",
+        "target": [
+            1006,
+            469,
+            55,
+            56
+        ],
+        "next": "StressNM_C5_DownScroll",
+        "rate_limit": 50
+    },
+    "StressNM_C5_DownScroll": {
+        "action": "Click",
+        "target": [
+            1157,
+            311,
+            60,
+            52
+        ],
+        "next": "StressNM_C5_DownSummon",
+        "rate_limit": 50
+    },
+    "StressNM_C5_DownSummon": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "StressNM_C5_DownAttack",
+        "rate_limit": 50
+    },
+    "StressNM_C5_DownAttack": {
+        "action": "Click",
+        "target": [
+            1139,
+            594,
+            15,
+            15
+        ],
+        "next": "StressNM_Done",
+        "rate_limit": 50
+    },
+    "StressNM_C5_UpAttack": {
+        "action": "TouchUp",
+        "contact": 5,
+        "next": "StressNM_C5_UpSummon",
+        "rate_limit": 50
+    },
+    "StressNM_C5_UpSummon": {
+        "action": "TouchUp",
+        "contact": 4,
+        "next": "StressNM_C5_UpScroll",
+        "rate_limit": 50
+    },
+    "StressNM_C5_UpScroll": {
+        "action": "TouchUp",
+        "contact": 3,
+        "next": "StressNM_C5_UpSkill2",
+        "rate_limit": 50
+    },
+    "StressNM_C5_UpSkill2": {
+        "action": "TouchUp",
+        "contact": 2,
+        "next": "StressNM_C5_UpSkill1",
+        "rate_limit": 50
+    },
+    "StressNM_C5_UpSkill1": {
+        "action": "TouchUp",
+        "contact": 1,
+        "next": "StressNM_C5_UpSub",
+        "rate_limit": 50
+    },
+    "StressNM_C5_UpSub": {
+        "action": "TouchUp",
+        "contact": 0,
+        "next": "StressNM_Done",
+        "rate_limit": 50
+    },
+    "StressNM_Done": {
+        "action": "StopTask"
+    },
+    "StressAS_C1_DownSub": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "StressAS_C1_DownSkill1",
+        "rate_limit": 50
+    },
+    "StressAS_C1_DownSkill1": {
+        "action": "Click",
+        "target": [
+            972,
+            618,
+            53,
+            53
+        ],
+        "next": "StressAS_C1_DownSkill2",
+        "rate_limit": 50
+    },
+    "StressAS_C1_DownSkill2": {
+        "action": "Click",
+        "target": [
+            1006,
+            469,
+            55,
+            56
+        ],
+        "next": "StressAS_C1_DownScroll",
+        "rate_limit": 50
+    },
+    "StressAS_C1_DownScroll": {
+        "action": "Click",
+        "target": [
+            1157,
+            311,
+            60,
+            52
+        ],
+        "next": "StressAS_C1_DownSummon",
+        "rate_limit": 50
+    },
+    "StressAS_C1_DownSummon": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "StressAS_C1_DownAttack",
+        "rate_limit": 50
+    },
+    "StressAS_C1_DownAttack": {
+        "action": "Click",
+        "target": [
+            1139,
+            594,
+            15,
+            15
+        ],
+        "next": "StressAS_C2_DownSub",
+        "rate_limit": 50
+    },
+    "StressAS_C1_UpAttack": {
+        "action": "TouchUp",
+        "contact": 5,
+        "next": "StressAS_C1_UpSummon",
+        "rate_limit": 50
+    },
+    "StressAS_C1_UpSummon": {
+        "action": "TouchUp",
+        "contact": 4,
+        "next": "StressAS_C1_UpScroll",
+        "rate_limit": 50
+    },
+    "StressAS_C1_UpScroll": {
+        "action": "TouchUp",
+        "contact": 3,
+        "next": "StressAS_C1_UpSkill2",
+        "rate_limit": 50
+    },
+    "StressAS_C1_UpSkill2": {
+        "action": "TouchUp",
+        "contact": 2,
+        "next": "StressAS_C1_UpSkill1",
+        "rate_limit": 50
+    },
+    "StressAS_C1_UpSkill1": {
+        "action": "TouchUp",
+        "contact": 1,
+        "next": "StressAS_C1_UpSub",
+        "rate_limit": 50
+    },
+    "StressAS_C1_UpSub": {
+        "action": "TouchUp",
+        "contact": 0,
+        "next": "StressAS_C2_DownSub",
+        "rate_limit": 50
+    },
+    "StressAS_C2_DownSub": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "StressAS_C2_DownSkill1",
+        "rate_limit": 50
+    },
+    "StressAS_C2_DownSkill1": {
+        "action": "Click",
+        "target": [
+            972,
+            618,
+            53,
+            53
+        ],
+        "next": "StressAS_C2_DownSkill2",
+        "rate_limit": 50
+    },
+    "StressAS_C2_DownSkill2": {
+        "action": "Click",
+        "target": [
+            1006,
+            469,
+            55,
+            56
+        ],
+        "next": "StressAS_C2_DownScroll",
+        "rate_limit": 50
+    },
+    "StressAS_C2_DownScroll": {
+        "action": "Click",
+        "target": [
+            1157,
+            311,
+            60,
+            52
+        ],
+        "next": "StressAS_C2_DownSummon",
+        "rate_limit": 50
+    },
+    "StressAS_C2_DownSummon": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "StressAS_C2_DownAttack",
+        "rate_limit": 50
+    },
+    "StressAS_C2_DownAttack": {
+        "action": "Click",
+        "target": [
+            1139,
+            594,
+            15,
+            15
+        ],
+        "next": "StressAS_C3_DownSub",
+        "rate_limit": 50
+    },
+    "StressAS_C2_UpAttack": {
+        "action": "TouchUp",
+        "contact": 5,
+        "next": "StressAS_C2_UpSummon",
+        "rate_limit": 50
+    },
+    "StressAS_C2_UpSummon": {
+        "action": "TouchUp",
+        "contact": 4,
+        "next": "StressAS_C2_UpScroll",
+        "rate_limit": 50
+    },
+    "StressAS_C2_UpScroll": {
+        "action": "TouchUp",
+        "contact": 3,
+        "next": "StressAS_C2_UpSkill2",
+        "rate_limit": 50
+    },
+    "StressAS_C2_UpSkill2": {
+        "action": "TouchUp",
+        "contact": 2,
+        "next": "StressAS_C2_UpSkill1",
+        "rate_limit": 50
+    },
+    "StressAS_C2_UpSkill1": {
+        "action": "TouchUp",
+        "contact": 1,
+        "next": "StressAS_C2_UpSub",
+        "rate_limit": 50
+    },
+    "StressAS_C2_UpSub": {
+        "action": "TouchUp",
+        "contact": 0,
+        "next": "StressAS_C3_DownSub",
+        "rate_limit": 50
+    },
+    "StressAS_C3_DownSub": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "StressAS_C3_DownSkill1",
+        "rate_limit": 50
+    },
+    "StressAS_C3_DownSkill1": {
+        "action": "Click",
+        "target": [
+            972,
+            618,
+            53,
+            53
+        ],
+        "next": "StressAS_C3_DownSkill2",
+        "rate_limit": 50
+    },
+    "StressAS_C3_DownSkill2": {
+        "action": "Click",
+        "target": [
+            1006,
+            469,
+            55,
+            56
+        ],
+        "next": "StressAS_C3_DownScroll",
+        "rate_limit": 50
+    },
+    "StressAS_C3_DownScroll": {
+        "action": "Click",
+        "target": [
+            1157,
+            311,
+            60,
+            52
+        ],
+        "next": "StressAS_C3_DownSummon",
+        "rate_limit": 50
+    },
+    "StressAS_C3_DownSummon": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "StressAS_C3_DownAttack",
+        "rate_limit": 50
+    },
+    "StressAS_C3_DownAttack": {
+        "action": "Click",
+        "target": [
+            1139,
+            594,
+            15,
+            15
+        ],
+        "next": "StressAS_C4_DownSub",
+        "rate_limit": 50
+    },
+    "StressAS_C3_UpAttack": {
+        "action": "TouchUp",
+        "contact": 5,
+        "next": "StressAS_C3_UpSummon",
+        "rate_limit": 50
+    },
+    "StressAS_C3_UpSummon": {
+        "action": "TouchUp",
+        "contact": 4,
+        "next": "StressAS_C3_UpScroll",
+        "rate_limit": 50
+    },
+    "StressAS_C3_UpScroll": {
+        "action": "TouchUp",
+        "contact": 3,
+        "next": "StressAS_C3_UpSkill2",
+        "rate_limit": 50
+    },
+    "StressAS_C3_UpSkill2": {
+        "action": "TouchUp",
+        "contact": 2,
+        "next": "StressAS_C3_UpSkill1",
+        "rate_limit": 50
+    },
+    "StressAS_C3_UpSkill1": {
+        "action": "TouchUp",
+        "contact": 1,
+        "next": "StressAS_C3_UpSub",
+        "rate_limit": 50
+    },
+    "StressAS_C3_UpSub": {
+        "action": "TouchUp",
+        "contact": 0,
+        "next": "StressAS_C4_DownSub",
+        "rate_limit": 50
+    },
+    "StressAS_C4_DownSub": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "StressAS_C4_DownSkill1",
+        "rate_limit": 50
+    },
+    "StressAS_C4_DownSkill1": {
+        "action": "Click",
+        "target": [
+            972,
+            618,
+            53,
+            53
+        ],
+        "next": "StressAS_C4_DownSkill2",
+        "rate_limit": 50
+    },
+    "StressAS_C4_DownSkill2": {
+        "action": "Click",
+        "target": [
+            1006,
+            469,
+            55,
+            56
+        ],
+        "next": "StressAS_C4_DownScroll",
+        "rate_limit": 50
+    },
+    "StressAS_C4_DownScroll": {
+        "action": "Click",
+        "target": [
+            1157,
+            311,
+            60,
+            52
+        ],
+        "next": "StressAS_C4_DownSummon",
+        "rate_limit": 50
+    },
+    "StressAS_C4_DownSummon": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "StressAS_C4_DownAttack",
+        "rate_limit": 50
+    },
+    "StressAS_C4_DownAttack": {
+        "action": "Click",
+        "target": [
+            1139,
+            594,
+            15,
+            15
+        ],
+        "next": "StressAS_C5_DownSub",
+        "rate_limit": 50
+    },
+    "StressAS_C4_UpAttack": {
+        "action": "TouchUp",
+        "contact": 5,
+        "next": "StressAS_C4_UpSummon",
+        "rate_limit": 50
+    },
+    "StressAS_C4_UpSummon": {
+        "action": "TouchUp",
+        "contact": 4,
+        "next": "StressAS_C4_UpScroll",
+        "rate_limit": 50
+    },
+    "StressAS_C4_UpScroll": {
+        "action": "TouchUp",
+        "contact": 3,
+        "next": "StressAS_C4_UpSkill2",
+        "rate_limit": 50
+    },
+    "StressAS_C4_UpSkill2": {
+        "action": "TouchUp",
+        "contact": 2,
+        "next": "StressAS_C4_UpSkill1",
+        "rate_limit": 50
+    },
+    "StressAS_C4_UpSkill1": {
+        "action": "TouchUp",
+        "contact": 1,
+        "next": "StressAS_C4_UpSub",
+        "rate_limit": 50
+    },
+    "StressAS_C4_UpSub": {
+        "action": "TouchUp",
+        "contact": 0,
+        "next": "StressAS_C5_DownSub",
+        "rate_limit": 50
+    },
+    "StressAS_C5_DownSub": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "StressAS_C5_DownSkill1",
+        "rate_limit": 50
+    },
+    "StressAS_C5_DownSkill1": {
+        "action": "Click",
+        "target": [
+            972,
+            618,
+            53,
+            53
+        ],
+        "next": "StressAS_C5_DownSkill2",
+        "rate_limit": 50
+    },
+    "StressAS_C5_DownSkill2": {
+        "action": "Click",
+        "target": [
+            1006,
+            469,
+            55,
+            56
+        ],
+        "next": "StressAS_C5_DownScroll",
+        "rate_limit": 50
+    },
+    "StressAS_C5_DownScroll": {
+        "action": "Click",
+        "target": [
+            1157,
+            311,
+            60,
+            52
+        ],
+        "next": "StressAS_C5_DownSummon",
+        "rate_limit": 50
+    },
+    "StressAS_C5_DownSummon": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "StressAS_C5_DownAttack",
+        "rate_limit": 50
+    },
+    "StressAS_C5_DownAttack": {
+        "action": "Click",
+        "target": [
+            1139,
+            594,
+            15,
+            15
+        ],
+        "next": "StressAS_Done",
+        "rate_limit": 50
+    },
+    "StressAS_C5_UpAttack": {
+        "action": "TouchUp",
+        "contact": 5,
+        "next": "StressAS_C5_UpSummon",
+        "rate_limit": 50
+    },
+    "StressAS_C5_UpSummon": {
+        "action": "TouchUp",
+        "contact": 4,
+        "next": "StressAS_C5_UpScroll",
+        "rate_limit": 50
+    },
+    "StressAS_C5_UpScroll": {
+        "action": "TouchUp",
+        "contact": 3,
+        "next": "StressAS_C5_UpSkill2",
+        "rate_limit": 50
+    },
+    "StressAS_C5_UpSkill2": {
+        "action": "TouchUp",
+        "contact": 2,
+        "next": "StressAS_C5_UpSkill1",
+        "rate_limit": 50
+    },
+    "StressAS_C5_UpSkill1": {
+        "action": "TouchUp",
+        "contact": 1,
+        "next": "StressAS_C5_UpSub",
+        "rate_limit": 50
+    },
+    "StressAS_C5_UpSub": {
+        "action": "TouchUp",
+        "contact": 0,
+        "next": "StressAS_Done",
+        "rate_limit": 50
+    },
+    "StressAS_Done": {
+        "action": "StopTask"
+    },
+    "WaitRound": {
+        "recognition": "OCR",
+        "roi": [
+            541,
+            0,
+            201,
+            137
+        ],
+        "expected": [
+            "第",
+            "回"
+        ],
+        "action": "DoNothing",
+        "next": "PracticeSubUnified",
+        "timeout": -1,
+        "rate_limit": 500
+    },
+    "WaitRoundHuangyuan": {
+        "recognition": "OCR",
+        "roi": [
+            541,
+            0,
+            201,
+            137
+        ],
+        "expected": [
+            "第",
+            "回"
+        ],
+        "action": "DoNothing",
+        "next": "PracticeLoopHuangyuan",
+        "timeout": -1,
+        "rate_limit": 500
+    },
+    "WaitRoundNami": {
+        "recognition": "OCR",
+        "roi": [
+            541,
+            0,
+            201,
+            137
+        ],
+        "expected": [
+            "第",
+            "回"
+        ],
+        "action": "DoNothing",
+        "next": "PracticeLoopNami",
+        "timeout": -1,
+        "rate_limit": 500
+    },
+    "WaitRoundAce": {
+        "recognition": "OCR",
+        "roi": [
+            541,
+            0,
+            201,
+            137
+        ],
+        "expected": [
+            "第",
+            "回"
+        ],
+        "action": "DoNothing",
+        "next": "PracticeLoopAce",
+        "timeout": -1,
+        "rate_limit": 500
+    },
+    "PracticeSubUnified": {
+        "action": "Click",
+        "target": [
+            842,
+            649,
+            15,
+            15
+        ],
+        "next": "PracticeSkill1Unified",
+        "post_delay": 50,
+        "rate_limit": 250
+    },
+    "PracticeSkill1Unified": {
+        "action": "Click",
+        "target": [
+            960,
+            640,
+            15,
+            15
+        ],
+        "next": "PracticeSkill2Unified",
+        "post_delay": 300,
+        "rate_limit": 350
+    },
+    "PracticeSkill2Unified": {
+        "action": "Click",
+        "target": [
+            993,
+            508,
+            15,
+            15
+        ],
+        "next": "PracticeScrollUnified",
+        "post_delay": 300,
+        "rate_limit": 350
+    },
+    "PracticeScrollUnified": {
+        "action": "Click",
+        "target": [
+            814,
+            351,
+            15,
+            15
+        ],
+        "next": "PracticeSummonUnified",
+        "post_delay": 200,
+        "rate_limit": 350
+    },
+    "PracticeSummonUnified": {
+        "action": "Click",
+        "target": [
+            877,
+            241,
+            15,
+            15
+        ],
+        "next": "AttackClicksUnified",
+        "post_delay": 200,
+        "rate_limit": 350
+    },
+    "AttackClicksUnified": {
+        "recognition": "DirectHit",
+        "action": "Click",
+        "target": [
+            1079,
+            602,
+            15,
+            15
+        ],
+        "repeat": 100,
+        "repeat_delay": 0,
+        "next": [
+            "EndContinue",
+            "PracticeSubUnified"
+        ],
+        "post_delay": 250,
+        "rate_limit": 100
+    },
+    "CharSwitch": {
+        "next": [
+            "CharHuangyuan",
+            "CharNami",
+            "CharAce",
+            "PracticeLoopUnknown"
+        ],
+        "rate_limit": 200
+    },
+    "CharHuangyuan": {
+        "recognition": "OCR",
+        "roi": [
+            138,
+            28,
+            54,
+            28
+        ],
+        "expected": "路奇",
+        "action": "DoNothing",
+        "next": "PracticeLoopHuangyuan",
+        "rate_limit": 200
+    },
+    "CharNami": {
+        "recognition": "OCR",
+        "roi": [
+            138,
+            28,
+            54,
+            28
+        ],
+        "expected": "奈美",
+        "action": "DoNothing",
+        "next": "PracticeLoopNami",
+        "rate_limit": 200
+    },
+    "CharAce": {
+        "recognition": "OCR",
+        "roi": [
+            138,
+            28,
+            54,
+            28
+        ],
+        "expected": "艾斯",
+        "action": "DoNothing",
+        "next": "PracticeLoopAce",
+        "rate_limit": 200
+    },
+    "PracticeLoopUnknown": {
+        "next": [
+            "AttackClicks"
+        ],
+        "rate_limit": 100
+    },
+    "PracticeLoopHuangyuan": {
+        "next": [
+            "SubThenSkill1Huangyuan"
+        ],
+        "rate_limit": 100
+    },
+    "SubThenSkill1Huangyuan": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "CastSkill1Huangyuan",
+        "post_delay": 200,
+        "rate_limit": 250
+    },
+    "SubThenSkill2Huangyuan": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "CastSkill2Huangyuan",
+        "post_delay": 200,
+        "rate_limit": 250
+    },
+    "SubThenScrollHuangyuan": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "CastScrollHuangyuan",
+        "post_delay": 200,
+        "rate_limit": 250
+    },
+    "CastSkill1Huangyuan": {
+        "action": "Click",
+        "target": [
+            972,
+            618,
+            53,
+            53
+        ],
+        "next": "CastSkill2Huangyuan",
+        "post_delay": 200,
+        "rate_limit": 350
+    },
+    "CastSkill2Huangyuan": {
+        "action": "Click",
+        "target": [
+            1006,
+            469,
+            55,
+            56
+        ],
+        "next": "CastSkill2Huangyuan_2",
+        "post_delay": 100,
+        "rate_limit": 350
+    },
+    "CastSkill2Huangyuan_2": {
+        "action": "Click",
+        "target": [
+            1006,
+            469,
+            55,
+            56
+        ],
+        "next": "CastScrollHuangyuan",
+        "post_delay": 200,
+        "rate_limit": 350
+    },
+    "CastScrollHuangyuan": {
+        "action": "Click",
+        "target": [
+            1157,
+            311,
+            60,
+            52
+        ],
+        "next": "CastSummonReturnLoopHuangyuan",
+        "post_delay": 200,
+        "rate_limit": 350
+    },
+    "SubThenSummonReturnLoopHuangyuan": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "CastSummonReturnLoopHuangyuan",
+        "post_delay": 200,
+        "rate_limit": 250
+    },
+    "SubThenSummonTo23Huangyuan": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "CastSummonTo23Huangyuan",
+        "post_delay": 200,
+        "rate_limit": 250
+    },
+    "SubThenSummonTo34Huangyuan": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "CastSummonTo34Huangyuan",
+        "post_delay": 200,
+        "rate_limit": 250
+    },
+    "SubThenSummonStay34Huangyuan": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "CastSummonStay34Huangyuan",
+        "post_delay": 200,
+        "rate_limit": 250
+    },
+    "CastSummonReturnLoopHuangyuan": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "AttackClicksHuangyuan",
+        "post_delay": 200,
+        "rate_limit": 350
+    },
+    "CastSummonTo23Huangyuan": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "AttackClicksHuangyuan",
+        "post_delay": 200,
+        "rate_limit": 350
+    },
+    "CastSummonTo34Huangyuan": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "AttackClicksHuangyuan",
+        "post_delay": 200,
+        "rate_limit": 350
+    },
+    "CastSummonStay34Huangyuan": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "AttackClicksHuangyuan",
+        "post_delay": 200,
+        "rate_limit": 350
+    },
+    "PracticeLoopNami": {
+        "next": [
+            "SubThenSkill1Nami"
+        ],
+        "rate_limit": 100
+    },
+    "SubThenSkill1Nami": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "CastSkill1Nami",
+        "post_delay": 200,
+        "rate_limit": 250
+    },
+    "SubThenSkill2Nami": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "CastSkill2Nami",
+        "post_delay": 200,
+        "rate_limit": 250
+    },
+    "SubThenScrollNami": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "CastScrollNami",
+        "post_delay": 200,
+        "rate_limit": 250
+    },
+    "CastSkill1Nami": {
+        "action": "Click",
+        "target": [
+            972,
+            618,
+            53,
+            53
+        ],
+        "next": "CastSkill2Nami",
+        "post_delay": 200,
+        "rate_limit": 350
+    },
+    "CastSkill2Nami": {
+        "action": "Click",
+        "target": [
+            1006,
+            469,
+            55,
+            56
+        ],
+        "next": "CastScrollNami",
+        "post_delay": 200,
+        "rate_limit": 350
+    },
+    "CastScrollNami": {
+        "action": "Click",
+        "target": [
+            1157,
+            311,
+            60,
+            52
+        ],
+        "next": "CastSummonReturnLoopNami",
+        "post_delay": 200,
+        "rate_limit": 350
+    },
+    "SubThenSummonReturnLoopNami": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "CastSummonReturnLoopNami",
+        "post_delay": 200,
+        "rate_limit": 250
+    },
+    "SubThenSummonTo23Nami": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "CastSummonTo23Nami",
+        "post_delay": 200,
+        "rate_limit": 250
+    },
+    "SubThenSummonTo34Nami": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "CastSummonTo34Nami",
+        "post_delay": 200,
+        "rate_limit": 250
+    },
+    "SubThenSummonStay34Nami": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "CastSummonStay34Nami",
+        "post_delay": 200,
+        "rate_limit": 250
+    },
+    "CastSummonReturnLoopNami": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "AttackClicksNami",
+        "post_delay": 200,
+        "rate_limit": 350
+    },
+    "CastSummonTo23Nami": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "AttackClicksNami",
+        "post_delay": 200,
+        "rate_limit": 350
+    },
+    "CastSummonTo34Nami": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "AttackClicksNami",
+        "post_delay": 200,
+        "rate_limit": 350
+    },
+    "CastSummonStay34Nami": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "AttackClicksNami",
+        "post_delay": 200,
+        "rate_limit": 350
+    },
+    "PracticeLoopAce": {
+        "next": [
+            "SubThenSkill1Ace"
+        ],
+        "rate_limit": 100
+    },
+    "SubThenSkill1Ace": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "CastSkill1Ace",
+        "post_delay": 200,
+        "rate_limit": 250
+    },
+    "SubThenSkill2Ace": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "CastSkill2Ace",
+        "post_delay": 200,
+        "rate_limit": 250
+    },
+    "SubThenScrollAce": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "CastScrollAce",
+        "post_delay": 200,
+        "rate_limit": 250
+    },
+    "CastSkill1Ace": {
+        "action": "Click",
+        "target": [
+            972,
+            618,
+            53,
+            53
+        ],
+        "next": "CastSkill1Ace_2",
+        "post_delay": 100,
+        "rate_limit": 350
+    },
+    "CastSkill1Ace_2": {
+        "action": "Click",
+        "target": [
+            972,
+            618,
+            53,
+            53
+        ],
+        "next": "CastSkill2Ace",
+        "post_delay": 200,
+        "rate_limit": 350
+    },
+    "CastSkill2Ace": {
+        "action": "Click",
+        "target": [
+            1006,
+            469,
+            55,
+            56
+        ],
+        "next": "CastSkill2Ace_2",
+        "post_delay": 100,
+        "rate_limit": 350
+    },
+    "CastSkill2Ace_2": {
+        "action": "Click",
+        "target": [
+            1006,
+            469,
+            55,
+            56
+        ],
+        "next": "CastSkill2Ace_3",
+        "post_delay": 100,
+        "rate_limit": 350
+    },
+    "CastSkill2Ace_3": {
+        "action": "Click",
+        "target": [
+            1006,
+            469,
+            55,
+            56
+        ],
+        "next": "CastScrollAce",
+        "post_delay": 200,
+        "rate_limit": 350
+    },
+    "CastScrollAce": {
+        "action": "Click",
+        "target": [
+            1157,
+            311,
+            60,
+            52
+        ],
+        "next": "CastSummonReturnLoopAce",
+        "post_delay": 200,
+        "rate_limit": 350
+    },
+    "SubThenSummonReturnLoopAce": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "CastSummonReturnLoopAce",
+        "post_delay": 200,
+        "rate_limit": 250
+    },
+    "SubThenSummonTo23Ace": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "CastSummonTo23Ace",
+        "post_delay": 200,
+        "rate_limit": 250
+    },
+    "SubThenSummonTo34Ace": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "CastSummonTo34Ace",
+        "post_delay": 200,
+        "rate_limit": 250
+    },
+    "SubThenSummonStay34Ace": {
+        "action": "Click",
+        "target": [
+            1022,
+            487,
+            15,
+            15
+        ],
+        "next": "CastSummonStay34Ace",
+        "post_delay": 200,
+        "rate_limit": 250
+    },
+    "CastSummonReturnLoopAce": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "AttackClicksAce",
+        "post_delay": 200,
+        "rate_limit": 350
+    },
+    "CastSummonTo23Ace": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "AttackClicksAce",
+        "post_delay": 200,
+        "rate_limit": 350
+    },
+    "CastSummonTo34Ace": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "AttackClicksAce",
+        "post_delay": 200,
+        "rate_limit": 350
+    },
+    "CastSummonStay34Ace": {
+        "action": "Click",
+        "target": [
+            1159,
+            172,
+            57,
+            52
+        ],
+        "next": "AttackClicksAce",
+        "post_delay": 200,
+        "rate_limit": 350
+    }
 }
